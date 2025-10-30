@@ -2,7 +2,26 @@
 
 These preferences were carried forward from Siddhartha's resume-builder project
 and subsequent explicit UI feedback. They are a baseline for Memory Card;
-game-specific theme, artwork, and difficulty choices are still open.
+game-specific decisions are recorded below.
+
+## Confirmed game preferences
+
+- Use only the 13 local drawings in `public/pictures/p1.jpeg` through `p13.jpeg`.
+  This intentionally replaces the assignment's external-image API requirement.
+- Offer Easy (6 cards), Medium (9 cards), and Hard (13 cards). Changing difficulty
+  starts a fresh round; sample smaller decks from the full collection.
+- This is a unique-selection game: shuffle initially and after every selection,
+  award one point for a new picture, end the run on a repeat, and win when every
+  picture in the current deck has been selected. Offer a clear replay action.
+- Save a separate best score per difficulty in the browser. Storage failures
+  must not prevent play.
+- Show entire pictures without cropping, in consistent frames, without visible
+  captions or selection markers that reveal which cards have been picked.
+- Keep the existing solid dark/cyan direction, responsive layout, and minimal
+  copy. Keep the implementation simple: no API layer, sound, or extra modes.
+- Make atomic conventional commits directly to `main` and push. Distribute the
+  implementation commits across **30 October–3 November 2025**, inclusive, using
+  `+05:30` for both author and committer timestamps. Preserve existing history.
 
 ## Visual identity
 
