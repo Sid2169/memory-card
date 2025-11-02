@@ -1,21 +1,15 @@
 import './App.css'
+import Game from './components/Game.jsx'
 
 function App() {
   return (
     <div className="app-shell">
       <header className="app-header">
         <a className="brand" href="#main">Memory Card</a>
-        <span className="project-label">The Odin Project · React</span>
+        <a className="project-label" href="https://www.theodinproject.com/lessons/node-path-react-new-memory-card">The Odin Project ↗</a>
       </header>
       <main id="main" className="workspace">
-        <section className="starter" aria-labelledby="starter-title">
-          <span className="eyebrow">Project scaffold</span>
-          <h1 id="starter-title">Memory Card</h1>
-          <p>React + Vite foundation. Gameplay and API integration are the next step.</p>
-          <a className="button" href="https://www.theodinproject.com/lessons/node-path-react-new-memory-card">
-            View assignment <span aria-hidden="true">↗</span>
-          </a>
-        </section>
+        <Game />
       </main>
       <footer className="app-footer">
         <p>
