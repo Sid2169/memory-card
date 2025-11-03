@@ -1,65 +1,63 @@
 # Memory Card
 
-A React + Vite starter for [The Odin Project's Memory Card assignment](https://www.theodinproject.com/lessons/node-path-react-new-memory-card).
+A simple picture memory game built with React, Vite, and plain CSS for
+[The Odin Project's Memory Card assignment](https://www.theodinproject.com/lessons/node-path-react-new-memory-card).
 
-**Creator:** [Siddhartha](https://sidsingh.vercel.app/) · [GitHub](https://github.com/Sid2169) · [LinkedIn](https://www.linkedin.com/in/siddhartha-suman-952a64256/)
+**[Play the game](https://sid2169.github.io/memory-card/)** ·
+[Source](https://github.com/Sid2169/memory-card)
 
-## Current status
+**Creator:** [Siddhartha](https://sidsingh.vercel.app/) ·
+[GitHub](https://github.com/Sid2169) ·
+[LinkedIn](https://www.linkedin.com/in/siddhartha-suman-952a64256/)
 
-Initial scaffold: JavaScript, React 19, Vite 7, ESLint, plain CSS, a solid-color
-starter screen, and an accessible creator footer. The game logic, scoreboard,
-card grid, and external API integration are planned work.
+## How to play
 
-## Assignment research
+Pick each picture **once**. The cards shuffle after every pick, so remember the
+picture rather than its position. Picking a picture again ends the round;
+picking every picture wins. Use **Play again** to start another round, or
+**Restart** during play.
 
-The project belongs to the Full Stack JavaScript path's React course, in the
-state/effects portion of the curriculum. Its learning goal is to use hooks to
-manage state and fetch data from an external API.
+| Difficulty | Pictures |
+| --- | --- |
+| Easy | 6 |
+| Medium | 9 |
+| Hard | 13 |
 
-The official assignment requires:
+Changing difficulty starts a fresh round. Smaller decks are sampled from the
+full collection. Your personal best is saved separately for each difficulty in
+this browser; clearing site data clears those records. If browser storage is
+unavailable, best scores still work for the current visit.
 
-- A new React project with a thought-out component and folder structure.
-- A scoreboard showing the current score and best score achieved so far.
-- A set of cards with images and optionally informational text, fetched from an external API.
-- Randomized card order on the initial mount and every time a card is clicked.
-- A styled application, a GitHub repository, and a deployed site.
+## Artwork and assignment scope
 
-The intended game is a **unique-selection memory challenge**, rather than a
-face-down matching-pairs game: select cards without selecting the same one twice
-while their positions keep changing.
+The game uses all 13 supplied pictures in `public/pictures/`, named `p1.jpeg`
+through `p13.jpeg`. Full pictures fit within consistent card frames without
+cropping. Cards have descriptive accessible names, with no visible captions or
+selection markers to give away previous picks. If an image cannot load, a
+descriptive text fallback keeps its card identifiable and playable.
 
-### Planned game behavior
+The official assignment asks for externally fetched images. **Using local
+pictures instead is a deliberate, confirmed preference for this version.**
+There is no external API, API key, or fetching layer. The other core requirements
+are implemented: current/best scores, randomized initial and post-click order,
+unique-selection rules, styling, a public repository, and a deployed site.
 
-- Give each fetched card a stable ID; track selection by ID, never grid position.
-- A first-time selection increases the current score.
-- Selecting an already-picked card ends the run; keep the best score and offer a restart.
-- Selecting every card wins the round.
-- Shuffle a copy of the deck on initial load and after selections, using Fisher–Yates.
-- Fetch once per deck and reuse the data when shuffling.
-- Provide loading, request-error/retry, and missing-image states.
-- Use native button cards with visible keyboard focus and readable names.
+## Design
 
-These rules are the implementation plan. The exact deck size, card theme, API,
-and restart/win presentation remain open decisions.
+Solid dark surfaces, one cyan action color, restrained success/status accents,
+and minimal copy. No gradients, glass effects, or extra dependencies. The grid
+adapts from desktop to two columns on narrow phones. Native buttons provide
+keyboard access, visible focus, and comfortable touch targets. Focus follows
+the selected picture through shuffles; a finished round focuses its result.
+Score changes have a polite screen-reader announcement, and reduced-motion
+preferences disable transitions.
 
-### API research
-
-The assignment suggests Giphy or PokéAPI as examples; neither is mandatory.
-[PokéAPI](https://pokeapi.co/docs/v2#pokemon) is a practical candidate because it
-provides Pokémon names, IDs, and image URLs without authentication. A detail
-request uses `GET https://pokeapi.co/api/v2/pokemon/{id-or-name}/`; image choices
-include `sprites.front_default` and official artwork when available. Cache
-responses locally, as requested by its fair-use policy, and avoid refetching on
-each click. No API has been wired into this scaffold.
-
-### Optional enhancements
-
-Persistent best scores, selectable deck sizes/difficulty, sound, and animation
-are optional extensions, not requirements stated by the official assignment.
+Confirmed gameplay, design, attribution, and Git workflow preferences are
+recorded in [docs/DESIGN_PHILOSOPHY.md](docs/DESIGN_PHILOSOPHY.md).
 
 ## Local development
 
-Requires Node.js 20.19+ on the Node 20 line, or Node.js 22.12+; Node 22 LTS is recommended.
+Requires Node.js 20.19+ on the Node 20 line, or Node.js 22.12+; Node 22 is used in CI.
 
 ```bash
 npm ci
@@ -71,54 +69,62 @@ Open the local URL printed by Vite.
 | Command | Purpose |
 | --- | --- |
 | `npm run dev` | Development server with hot reload |
+| `npm test` | Game-rule and browser-storage unit tests using Node's test runner |
 | `npm run lint` | ESLint checks |
 | `npm run build` | Production output in `dist/` |
 | `npm run preview` | Serve the production build locally |
 
-## Structure and implementation plan
+## Structure and logic
 
 ```text
-public/                   Favicon and footer logos
+public/pictures/           The 13 original picture assets
 src/
-  App.jsx                 Starter application shell
-  App.css                 Layout and component styles
-  index.css               Solid-color tokens and global styles
-  main.jsx                React entry point
-docs/
-  DESIGN_PHILOSOPHY.md     Recorded design philosophy and preferences
+  App.jsx                 Header, game, and creator footer
+  App.css                 Responsive game and layout styles
+  index.css               Color tokens and global accessibility styles
+  game.js                 Card data, difficulties, Fisher–Yates shuffle, round rules
+  scores.js               Best-score validation and safe browser persistence
+  hooks/useGame.js        React round state and score-storage synchronization
+  components/
+    Game.jsx              Controls, round result, announcements, and focus
+    CardGrid.jsx          Picture buttons and missing-image fallback
+    Scoreboard.jsx        Current score and personal best
+tests/                    Game-rule and score-storage tests
+.github/workflows/         GitHub Pages build and deployment
+docs/                     Recorded preferences
 ```
 
-When implementing gameplay, introduce `components/` for the scoreboard, grid,
-cards, and round status; `hooks/` for fetching and round state; `services/` for
-the chosen API adapter; and `utils/` for shuffling. Keep external data fetching
-separate from selection/scoring transitions. Use effects for API synchronization
-with cleanup, and event handlers for card selections. Avoid mutating state and
-avoid putting gameplay side effects inside state updater functions.
+Selections use stable picture IDs, never grid positions. The score is derived
+from the list of unique picked IDs. A selection returns a new round without
+mutating the previous one, and finished rounds ignore further selections.
+Fisher–Yates shuffles copies of the deck. Event handlers create/shuffle rounds;
+effects only synchronize best scores with storage. There is no game-state library
+or generic service layer.
 
-## Design
+## Verification
 
-Solid dark surfaces, cyan actions, minimal copy, responsive cards, and accessible
-interaction states. No gradients or glass effects. Full preferences and personal
-links are recorded in [docs/DESIGN_PHILOSOPHY.md](docs/DESIGN_PHILOSOPHY.md).
+Run `npm test`, `npm run lint`, and `npm run build`. Tests cover shuffling without
+mutation or identity loss, deck sizes, unique scoring, repeat-click loss,
+all-difficulty wins, completed-round guards, restarting, best-score retention,
+malformed saved data, and unavailable storage.
 
-## Verification and delivery
+Browser checks performed against the production build in Chromium:
 
-The baseline checks are `npm run lint` and `npm run build`. Once gameplay exists,
-verify repeat-click loss, unique-selection scoring, best-score retention, a full
-round win, shuffled identity stability, API failures, keyboard access, and narrow
-mobile layouts. Focus automated tests on those state transitions when implemented.
+- Keyboard selection and focus retention after shuffling.
+- Repeat-click loss, disabled finished cards, result focus, and replay.
+- Full wins at 6, 9, and 13 cards; difficulty changes and mid-round restarts.
+- Best scores retained separately after reloading.
+- All 13 image assets load; images fit without cropping.
+- Narrow 320px/375px and tablet 768px layouts without horizontal overflow.
+- Reduced-motion settings, missing-image fallbacks, and blocked localStorage.
 
-Vite uses `base: './'` for static project-path hosting. No remote repository or
-deployment has been configured at this stage. A future static deployment should
-build with `npm ci && npm run build` and publish `dist/`.
+## Deployment and commit dates
 
-The requested initial Git commit date is **30 October 2025**, applied to both
-author and committer timestamps. Git timestamps do not establish a publication
-or deployment date.
+Pushes to `main` trigger the GitHub Pages workflow: install dependencies, lint,
+test, build, and deploy `dist/`. Vite's `base: './'` keeps assets relative to the
+project path at **https://sid2169.github.io/memory-card/**.
 
-## Sources
-
-- [Official Memory Card assignment](https://www.theodinproject.com/lessons/node-path-react-new-memory-card)
-- [Curriculum source](https://github.com/TheOdinProject/curriculum/blob/main/react/states_and_effects/project_memory_card.md)
-- [Student example linked by the assignment](https://heldersrvio.github.io/memory-card-game/)
-- [PokéAPI documentation and fair-use policy](https://pokeapi.co/docs/v2)
+The initial commit has author and committer timestamps of **30 October 2025**.
+Implementation commits intentionally use historical timestamps across
+**30 October–3 November 2025**, inclusive, in `+05:30`. Existing commits are
+preserved. Git timestamps do not establish GitHub publication or deployment dates.
