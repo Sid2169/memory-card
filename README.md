@@ -8,10 +8,10 @@ A picture memory game built with React, Vite, and plain CSS for
 ## How to play
 
 Pick each picture once as the cards shuffle. A repeat ends the round; selecting
-every picture wins. Choose Easy (6 cards), Medium (9), or Hard (13). Best scores
+every picture wins. Choose Easy (6 cards), Medium (9), or Hard (15). Best scores
 are saved per difficulty in your browser.
 
-Uses 13 local pictures, displayed without cropping. Supports mobile layouts and
+Uses 15 local pictures, displayed without cropping. Supports mobile layouts and
 keyboard controls.
 
 ## Development

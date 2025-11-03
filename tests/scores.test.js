@@ -27,6 +27,8 @@ test('malformed and out-of-range saved scores cannot corrupt the scoreboard', ()
     { easy: 0, medium: 0, hard: 0 })
   assert.deepEqual(read('{"easy":6,"medium":2.5,"hard":13}'),
     { easy: 6, medium: 0, hard: 13 })
+  assert.equal(read('{"hard":15}').hard, 15)
+  assert.equal(read('{"hard":16}').hard, 0)
 })
 
 test('blocked storage does not prevent reading defaults or saving in-memory scores', () => {

@@ -6,9 +6,9 @@ game-specific decisions are recorded below.
 
 ## Confirmed game preferences
 
-- Use only the 13 local drawings in `public/pictures/p1.jpeg` through `p13.jpeg`.
+- Use only the 15 local drawings in `public/pictures/p1.jpeg` through `p15.jpeg`.
   This intentionally replaces the assignment's external-image API requirement.
-- Offer Easy (6 cards), Medium (9 cards), and Hard (13 cards). Changing difficulty
+- Offer Easy (6 cards), Medium (9 cards), and Hard (15 cards). Changing difficulty
   starts a fresh round; sample smaller decks from the full collection.
 - This is a unique-selection game: shuffle initially and after every selection,
   award one point for a new picture, end the run on a repeat, and win when every

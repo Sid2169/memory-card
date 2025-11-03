@@ -1,7 +1,7 @@
 export const DIFFICULTIES = {
   easy: { label: 'Easy', size: 6 },
   medium: { label: 'Medium', size: 9 },
-  hard: { label: 'Hard', size: 13 },
+  hard: { label: 'Hard', size: 15 },
 }
 
 const descriptions = [
@@ -18,6 +18,8 @@ const descriptions = [
   'Ninja perched on a post with birds',
   'Red-haired woman in armor',
   'Pencil portrait with a scarf covering the face',
+  'Long-haired armored swordswoman holding a sword',
+  'Spiky-haired warrior with two figures behind him',
 ]
 
 export const CARDS = descriptions.map((description, index) => ({
