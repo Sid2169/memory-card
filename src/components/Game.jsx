@@ -39,8 +39,7 @@ export default function Game() {
     <section className="game" aria-labelledby="game-title">
       <div className="game-heading">
         <div>
-          <p className="eyebrow">A little attention. A little memory.</p>
-          <h1 id="game-title">No second guesses.</h1>
+          <h1 id="game-title">Memory Card</h1>
           <p className="game-rules">Pick each picture once. The cards shuffle after every pick.</p>
         </div>
         <Scoreboard score={score} best={best} total={total} />
@@ -83,12 +82,12 @@ export default function Game() {
         <section className={`round-result ${round.status}`} aria-labelledby="result-title">
           <div>
             <h2 id="result-title" aria-describedby="result-summary" ref={resultRef} tabIndex={-1}>
-              {round.status === 'won' ? 'Every picture. First try.' : 'That one looked familiar.'}
+              {round.status === 'won' ? 'Round complete' : 'Game over'}
             </h2>
             <p id="result-summary">
               {round.status === 'won'
-                ? `You remembered all ${total} pictures. A perfect round.`
-                : `You picked that picture twice. ${score} of ${total} remembered this round.`}
+                ? `You selected all ${total} pictures without a repeat.`
+                : `You selected a picture twice. Final score: ${score} of ${total}.`}
             </p>
           </div>
           <button className="button" type="button" onClick={handleRestart}>Play again</button>

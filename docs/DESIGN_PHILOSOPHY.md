@@ -45,6 +45,9 @@ game-specific decisions are recorded below.
 - Prioritize the card grid and scores over decoration or explanatory prose.
 - Minimal instructions: avoid per-field hints, long section descriptions,
   technology-stack footer statements, and unnecessary size/status metadata.
+- Use direct, descriptive headings and status messages. Avoid slogans, playful
+  one-liners, and motivational copy; use “Memory Card”, “Round complete”, and
+  “Game over” for the main gameplay headings.
 - One short rules sentence may be useful for this game; do not repeat guidance
   around every control.
 - Use responsive layouts that work on narrow mobile screens as well as desktop.
